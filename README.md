@@ -33,8 +33,48 @@ Configure an on-premises Active Directory within Azure VMs using my previous pro
 
 <h4>1. </h4>
 <p>
-<img src=""/>
+<img src="https://github.com/BrianRivera22/network_file_shares/blob/main/Network%20File%20Shares%20%26%20User%20Permissions/1.png"/>
 </p>
 <p>
-word
+In dc-1, login as an admin and create four folders in the C-drive.
 
+Right click on each folder and click properties. Within properties, click share and configure the share settings
+
+Folder: “read-access”, Group: “Domain Users”, Permission: “Read” Folder: “write-access”, Group: “Domain Users”, Permissions: “Read/Write” Folder: “no-access”, Group: “Domain Admins”, “Permissions: “Read/Write” We will skip the "accounting" folder for now.
+
+<p>
+<img src="https://github.com/BrianRivera22/network_file_shares/blob/main/Network%20File%20Shares%20%26%20User%20Permissions/2.png"/>
+</p>
+<p>
+Within client-1, log in as any user and go to Start -> Run -> \\dc-1
+
+This will open the shared folders and notice that they the permissions are enforced.
+
+<p>
+<img src="https://github.com/BrianRivera22/network_file_shares/blob/main/Network%20File%20Shares%20%26%20User%20Permissions/3.png"/>
+</p>
+<p>
+Back in dc-1, in Active Directory Users and Computers, create an OU named "_GROUPS" (You can skip this step, but it's good practice for organizational purposes) 
+
+Create a new group named "ACCOUNTANTS" within "_GROUPs"
+
+<p>
+<img src="https://github.com/BrianRivera22/network_file_shares/blob/main/Network%20File%20Shares%20%26%20User%20Permissions/4.png"/>
+</p>
+<p>
+Here, I am showing two different ways to make a user (ben.cab)
+
+
+  
+On the right, within "_EMPLOYEES", you can also make a user a member of the group "ACCOUNTANTS"
+
+<p>
+<img src="https://github.com/BrianRivera22/network_file_shares/blob/main/Network%20File%20Shares%20%26%20User%20Permissions/5.png"/>
+</p>
+<p>
+Back in dc-1, go to the "accounting" only folder and change the share properties. Add the group "ACCOUNTANTS" in the share settings.
+
+Back in client-1, log in as the user that was added to the ACCOUNTANTS group and access the accounting folder
+
+
+<b>This concludes the tutorial!</b>
